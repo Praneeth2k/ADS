@@ -1,4 +1,4 @@
-//program to perform insertion and deletionn on 2-3 tress
+//program to perform insertion and deletion on 2-3 tress
 #include <bits/stdc++.h>
 #include<iostream>
 #include<algorithm>
