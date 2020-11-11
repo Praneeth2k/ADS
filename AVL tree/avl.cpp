@@ -94,32 +94,32 @@ Node* minvalue(Node* root)
 Node* deletion(Node* root, int item)  
 {  
 	if(root == NULL)  
-        	return root;  
-     	if(item < root->data)  
-        	root->left = deletion(root->left, item);  
-    	else if(item > root->data)  
-        	root->right = deletion(root->right, item);  
-    	else
+        return root;  
+    if(item < root->data)  
+        root->left = deletion(root->left, item);  
+    else if(item > root->data)  
+        root->right = deletion(root->right, item);  
+    else
+    {  
+        if((root->left == NULL) || (root->right == NULL))  
+        {  
+        	Node *t = root->left?root->left:root->right;  
+    		if (t == NULL)  
+    		{  
+            	t = root;  
+        		root = NULL;  
+        	}  
+            else 
+        		*root = *t; 
+    		free(t);  
+    }  
+        else
     	{  
-        	if((root->left == NULL) || (root->right == NULL))  
-        	{  
-            		Node *t = root->left?root->left:root->right;  
-            		if (t == NULL)  
-            		{  
-            	    		t = root;  
-                		root = NULL;  
-            		}  
-            		else 
-            			*root = *t; 
-            		free(t);  
-        	}  
-        	else
-        	{  
-            		Node* t = minvalue(root->right); 
-            		root->data = t->data;  
-            		root->right = deletion(root->right, t->data);  
-        	}  
-    	}  
+        		Node* t = minvalue(root->right); 
+            	root->data = t->data;  
+            	root->right = deletion(root->right, t->data);  
+        }  
+    }  
      	if (root == NULL)  
     		return root;  
      	root->height = 1 + max(returnheight(root->left), returnheight(root->right));  

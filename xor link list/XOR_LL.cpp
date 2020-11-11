@@ -52,6 +52,76 @@ void insert_end(Node **head_ref, int data){
     prev->npx = XOR(new_node, XOR(prev->npx, NULL));
     prev = new_node;
 }
+
+void delete_end(Node **head){
+    Node *prev = NULL, *curr, *next;
+    curr = *head;
+    if(*head == NULL){
+        cout<<"Nothing to delete"<<endl;
+        return;
+    }
+    if((*head)->npx == NULL){
+        cout<<"Deleted "<<(*head)->data<<endl;
+        *head = NULL;
+        return;
+    }
+    while(XOR(curr->npx, prev) != NULL){
+        next = XOR (prev, curr->npx);
+        prev = curr;  
+        curr = next;
+    }
+    prev->npx = XOR(NULL, XOR(prev->npx, curr));
+    return;
+}
+
+void deleteFirst(Node **head_ref){
+    if(*head_ref == NULL){
+        cout<<"Nothing to delete\n";
+        return;
+    }
+    if((*head_ref)->npx == NULL){
+        cout<<"Deleted "<<(*head_ref)->data<<endl;
+        free(*head_ref);
+        *head_ref = NULL;
+        return;
+    }
+    cout<<"Deleted "<<(*head_ref)->data<<endl;
+    Node *prev = *head_ref;
+    *head_ref = (*head_ref)->npx;
+    (*head_ref)->npx = XOR(NULL, (XOR(prev, (*head_ref)->npx)));
+    free(prev);
+
+}
+
+void delete_ele(Node **head, int ele){
+    Node *prev = NULL, *curr, *next;
+    curr = *head;
+    if(*head == NULL){
+        cout<<"Nothing to delete"<<endl;
+        return;
+    }
+    if((*head)->data == ele){
+        deleteFirst(head);
+        return;
+    }
+    while(XOR(curr->npx, prev) != NULL){
+        if(curr->data == ele){
+            Node *temp = prev;
+            prev->npx = XOR(XOR(prev->npx,curr), XOR(curr->npx, prev));
+            next = XOR (temp, curr->npx);
+            next->npx = XOR(XOR(next->npx, curr), temp);
+            return;
+        }
+        next = XOR (prev, curr->npx);
+        prev = curr;  
+        curr = next;
+    }
+}
+
+
+
+
+
   
 
 void printList (Node *head)  
@@ -79,7 +149,7 @@ int main ()
     
     Node *head = NULL;  
     while(true){
-        cout<<"1: Insert element at the beginning\n2: Insert at the end\n3: Print the elements in the link list\n4: Exit"<<endl;
+        cout<<"1: Insert element at the beginning\n2: Insert at the end\n3: Print the elements in the link list\n4: Delete first\n5: Delete end\n6: Exit"<<endl;
         cin>>ch;
         if(ch == 1){
             cout<<"Enter the element"<<endl;
@@ -95,6 +165,17 @@ int main ()
             printList(head);
         }
         if(ch == 4){
+            deleteFirst(&head);
+        }
+        if(ch == 5){
+            delete_end(&head);
+        }
+        if(ch == 6){
+            cout<<"Enter the element to delete\n";
+            cin>>ele;
+            delete_ele(&head, ele);
+        }
+        if(ch == 7){
             break;
         }
     }
