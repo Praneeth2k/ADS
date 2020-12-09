@@ -94,7 +94,7 @@ int main()
    	int ch;
    	while(1) 
    	{
-      		cout<<"\nEnter\n1. Insert\n2. Search\n3. Delete\n4. Exit\n";
+      		cout<<"\nEnter\n1. Insert\n2. Search\n3. Delete\n4.Exit\n";
       		cin>>ch;
       		switch(ch) 
       		{
