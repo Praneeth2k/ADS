@@ -1,4 +1,7 @@
 // Given an array of N distinct elements, the task is to find all elements in array except two greatest elements.
+
+// O(nlog(n)) time | O(n) space
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -30,8 +33,9 @@ int main(){
         if(numbers.size() == 0){
             cout<<"Array is empty";
         }
-        for (int j = 0; j < numbers.size(); j++) 
-        cout << numbers[j] << " "; 
+        for (int j = 0; j < numbers.size(); j++) {
+            cout << numbers[j] << " "; 
+        }
         cout<<"\n";
     }
 
